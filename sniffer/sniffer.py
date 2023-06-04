@@ -45,7 +45,7 @@ def process_packet(packet):
     packet = packet.payload
 
     # UDP/TCP/ICMP
-    if not "protocol" in packet_info:
+    if "protocol" not in packet_info:
         packet_info["protocol"] = packet.name
 
     if hasattr(packet, "sport") and hasattr(packet, "dport"):
