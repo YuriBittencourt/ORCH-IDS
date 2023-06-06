@@ -1,35 +1,30 @@
-import os
-from pymongo import MongoClient
-
+from utils.mongo import Mongo
+from utils.auth_decorator import authenticated_resource
 from flask import Flask, render_template, request, redirect, session, url_for
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta'  # Defina sua própria chave secreta
-load_dotenv()
-credentials = {"username": os.getenv("ADMIN_USER"), "password": os.getenv("ADMIN_PASSWORD")}
+config = dotenv_values()
+app.secret_key = config['SECRET_KEY']
+name = "NIDS"
 
-mongo_host = os.getenv('MONGO_HOST')
-mongo_port = int(os.getenv('MONGO_PORT'))
-mongo_db = os.getenv('MONGO_DB')
-client = MongoClient(host=mongo_host, port=mongo_port)
-db = client[mongo_db]
+credentials = {"username": config["ADMIN_USER"], "password": config["ADMIN_PASSWORD"]}
+
+mongo = Mongo()
 
 collections = {
-    'packets': os.getenv('MONGO_COLLECTION_QUEUE'),
-    'rules': os.getenv('MONGO_COLLECTION_RULES'),
-    'blacklist': os.getenv('MONGO_COLLECTION_BLACKLISTED'),
-    'alerts': os.getenv('MONGO_COLLECTION_ALERTS')
+    'packets': config['MONGO_COLLECTION_QUEUE'],
+    'rules': config['MONGO_COLLECTION_RULES'],
+    'blacklist': config['MONGO_COLLECTION_BLACKLISTED'],
+    'alerts': config['MONGO_COLLECTION_ALERTS']
 }
 
-
 @app.route('/')
-def dashboard():
-    if 'username' in session:
-        username = session['username']
-        return render_template('dashboard.html', username=username)
-    else:
-        return redirect(url_for('login'))
+@authenticated_resource
+def home():
+    username = session['username']
+    return render_template('dashboard.html', username=username, title=name)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -39,34 +34,73 @@ def login():
 
         if username == credentials["username"] and password == credentials["password"]:
             session['username'] = username
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('home'))
         else:
             return render_template('login.html', error='Invalid Credentials!')
 
-    return render_template('login.html')
+    return render_template('login.html', title=name)
 
 
 @app.route('/logout')
+@authenticated_resource
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
 
-@app.route('/regras', methods=['GET', 'POST', 'UPDATE'])
-def regras():
+@app.route('/rules', methods=['GET', 'POST', 'UPDATE'])
+@authenticated_resource
+def rules():
     if request.method == 'GET':
-        return render_template('regras.html', regras=db[collections['rules']].find())
+        return render_template('regras.html', regras=list(mongo.db[mongo.collections['rules']].find()), title=name)
 
 
-@app.route('/pacotes')
-def pacotes():
-    return render_template('pacotes.html')
+@app.route('/blacklist', methods=['GET', 'POST', 'DELETE'])
+@authenticated_resource
+def blacklist():
+    if request.method == 'POST':
+        try:
+            new = {"ip": request.form['ip'], "version": int(request.form['version']), 'reason': request.form['reason']}
+            mongo.db[mongo.collections['blacklist']].insert_one(new)
+        except Exception as e:
+            print(e)
+
+    if request.method == 'DELETE':
+        try:
+            print({"_id": request.json["ip"]})
+            mongo.db[mongo.collections['blacklist']].delete_one({"ip": request.json["ip"]})
+        except Exception as e:
+            print(e)
+
+    ban_list = list(mongo.db[mongo.collections['blacklist']].find())
+    keys = []
+    if ban_list:
+        keys = list(ban_list[0].keys())
+        keys.remove('_id')
+
+    return render_template('blacklist.html', blacklist=ban_list, keys=keys, title=name)
 
 
-@app.route('/alertas')
-def alertas():
-    return render_template('alertas.html')
+@app.route('/alerts')
+@authenticated_resource
+def alerts():
+    return render_template('alertas.html', title=name)
+
+
+@app.route('/configurations')
+@authenticated_resource
+def configurations():
+    return render_template('config.html', title=name)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    if config['ENVIRONMENT'] == 'DEV':
+        app.run(host="0.0.0.0", port=config['PORT'], debug=True)
+
+    elif config['ENVIRONMENT'] == 'PROD':
+        from waitress import serve
+        serve(app, host="0.0.0.0", port=config['PORT'])
+
+    else:
+        raise ValueError('WRONG environment variable')
+
