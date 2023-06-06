@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from scapy.all import *
-import time
+from datetime import datetime
 
 load_dotenv()
 
@@ -19,12 +19,12 @@ queue = []
 def process_packet(packet):
     #print(packet.show())
 
-    if ARP in packet:
+    if IP not in packet:
         return
 
     # Ethernet header
     packet_info = {
-        "timestamp": time.time(),
+        "timestamp": int(datetime.now().timestamp() * 1000),
         "source_mac": packet.src,
         "destination_mac": packet.dst,
     }
