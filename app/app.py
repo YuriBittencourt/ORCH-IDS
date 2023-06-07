@@ -2,6 +2,12 @@ from utils.mongo import Mongo
 from utils.auth_decorator import authenticated_resource
 from flask import Flask, render_template, request, redirect, session, url_for
 from dotenv import dotenv_values
+from bson import ObjectId
+
+from utils.mongo import mongo_instance as mongo
+from utils.auth_decorator import authenticated_resource
+from utils.setup_db import setup_db
+import utils.populate_db as pop
 
 app = Flask(__name__)
 config = dotenv_values()
@@ -67,8 +73,7 @@ def blacklist():
 
     if request.method == 'DELETE':
         try:
-            print({"_id": request.json["ip"]})
-            mongo.db[mongo.collections['blacklist']].delete_one({"ip": request.json["ip"]})
+            mongo.db[mongo.collections['blacklist']].delete_one({ "_id": ObjectId(request.json["_id"])})
         except Exception as e:
             print(e)
 
@@ -78,7 +83,7 @@ def blacklist():
         keys = list(ban_list[0].keys())
         keys.remove('_id')
 
-    return render_template('blacklist.html', blacklist=ban_list, keys=keys, title=name)
+    return render_template('blacklist.html', list=ban_list, keys=keys, title=name)
 
 
 @app.route('/alerts')
@@ -87,10 +92,26 @@ def alerts():
     return render_template('alertas.html', title=name)
 
 
-@app.route('/configurations')
+@app.route('/configurations/')
+@app.route('/configurations/<action>')
 @authenticated_resource
-def configurations():
-    return render_template('config.html', title=name)
+def configurations(action=None):
+    if action == "setup_db":
+        setup_db()
+
+    elif action == "populate_rules":
+        pop.rules()
+
+    elif action == "populate_blacklist":
+        pop.blacklist()
+
+    elif action == "populate_packets":
+        pop.packets()
+
+    elif action == "populate_alerts":
+        pop.alerts()
+
+    return render_template('configurations.html', title=name)
 
 
 if __name__ == '__main__':
