@@ -1,89 +1,23 @@
-{% extends 'header.html' %}
+{% extends 'components/base.html' %}
 
 {% block content %}
 <div class="d-flex align-items-center justify-content-between border-bottom">
     <h1>Blocked IPs</h1>
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addIP"> Add new IP </button>
-</div>
-
-<div class="modal fade" id="addIP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Blacklist new IP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addToBlacklist" method="POST" action="{{ url_for('blacklist')}}" onsubmit="return validateForm()">
-                    <div class="form-row d-flex justify-content-between">
-                        <div class="form-group col-md-8">
-                            <label for="ip" class="form-label">IP:</label>
-                            <input type="text" class="form-control" id="ip" name="ip" required>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="version" class="form-label">Version:</label>
-                            <select name="version" class="form-control" id="version" required form="addToBlacklist">
-                                <option selected value=4>4</option>
-                                <option value=6>6</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reason" class="form-label">Reason:</label>
-                        <input type="text" class="form-control" id="reason" name="reason" required>
-                    </div>
-                    <button type="submit" class="btn green-btn">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal"> Add new IP </button>
 </div>
 
 
-{% if blacklist %}
-<table class="table table-striped table-dark table-bordered table-responsive table-hover">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        {% for key in keys %}
-        <th scope="col">{{key}}</th>
-        {% endfor %}
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+{% include 'components/modal/blacklist.html' %}
 
-    {% for i in blacklist %}
-    <tr>
-        <th class="col-md-1">{{loop.index}}</th>
-        {% for key in keys %}
-        <td class="col-md-3">{{ i[key] }}</td>
-        {% endfor %}
-        <td class="col-md-1 align-items-center">
-            <button class="btn btn-danger col-md-10 align-items-center" value="{{i['ip']}}" onclick="deleteEntry(this)">Delete</button> <!-- Botão de Edição -->
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+
+{% if list %}
+{% include 'components/table.html' %}
+
+{% else %}
+<p> There is none IP blacklisted </p>
+{% endif %}
 
 <script>
-    function validateForm() {
-        let ip = document.forms["addToBlacklist"]["ip"].value;
-        let version = document.forms["addToBlacklist"]["version"].value;
-
-        let regex = /^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
-        if (version === "4") {
-            regex =  /^(\d{1,3}\.){3}\d{1,3}$/;
-        }
-
-        // Verificar se o valor do campo corresponde ao formato do IPv6
-        if (!regex.test(ip)){
-            alert("Invalid IP format");
-            return false;
-        }
-    }
-
     function deleteEntry(btn){
         let row = btn.parentNode.parentNode;
         fetch('/blacklist', {
@@ -97,8 +31,4 @@
     }
 </script>
 
-{% else %}
-<p> There is none IP blacklisted </p>
-
-{% endif %}
 {% endblock %}

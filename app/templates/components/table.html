@@ -1,0 +1,25 @@
+<table class="table table-striped table-dark table-bordered table-responsive table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        {% for key in keys %}
+        <th scope="col">{{key}}</th>
+        {% endfor %}
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in list %}
+    <tr>
+        <th class="col-md-1">{{loop.index}}</th>
+        {% for key in keys %}
+        <td class="col-md-3">{{ item[key] }}</td>
+        {% endfor %}
+        <td class="col-md-1 align-items-center">
+            <button class="btn btn-danger col-md-10 align-items-center" value="{{item['ip']}}" onclick="deleteEntry(this)">Delete</button> <!-- Botão de Edição -->
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
