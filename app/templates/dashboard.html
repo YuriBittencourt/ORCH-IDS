@@ -1,12 +1,12 @@
-{% extends 'header.html' %}
+{% extends 'components/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <h1>Dashboard</h1>
-        <p>Welcome, {{ username }}!</p>
-        <a href="/logout" class="btn btn-primary">Logout</a>
+<div class="container">
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ username }}!</p>
+    <a href="/logout" class="btn btn-primary">Logout</a>
 
-        <hr>
-    </div>
+    <hr>
+</div>
 {% endblock %}
 
