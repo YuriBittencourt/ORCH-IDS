@@ -13,7 +13,7 @@ class Schema:
                     'ip': {
                         'type': 'string'
                     },
-                    'version': {
+                    'ip_version': {
                         'type': 'number',
                         'enum': [4, 6]
                     },
@@ -114,7 +114,7 @@ class Schema:
                     'destination_ip': {
                         'type': 'string',
                     },
-                    'version': {
+                    'ip_version': {
                         'type': 'number',
                         'enum': [4, 6]
                     },

@@ -34,7 +34,7 @@ def process_packet(packet):
     # IPv4/IPv6
     packet_info["source_ip"] = packet.src
     packet_info["destination_ip"] = packet.dst
-    packet_info["version"] = packet.version
+    packet_info["ip_version"] = packet.version
 
     # IPv4 has a len attribute, IPv6 has a plen attribute
     packet_info["length"] = packet.len if packet.version == 4 else packet.plen
