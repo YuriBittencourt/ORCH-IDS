@@ -14,18 +14,19 @@
 {% include 'components/table.html' %}
 
 {% else %}
-<p> There is none IP blacklisted </p>
+<p> There is no IP blacklisted </p>
 {% endif %}
 
 <script>
     function deleteEntry(btn){
+        console.log(btn.value)
         let row = btn.parentNode.parentNode;
         fetch('/blacklist', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ ip: btn.value })
+            body: JSON.stringify({ '_id': btn.value })
         })
         row.remove();
     }

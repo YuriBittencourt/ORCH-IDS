@@ -17,7 +17,7 @@
         <td class="col-md-3">{{ item[key] }}</td>
         {% endfor %}
         <td class="col-md-1 align-items-center">
-            <button class="btn btn-danger col-md-10 align-items-center" value="{{item['ip']}}" onclick="deleteEntry(this)">Delete</button> <!-- Botão de Edição -->
+            <button class="btn btn-danger col-md-10 align-items-center" value="{{item['_id']}}" onclick="deleteEntry(this)">Delete</button> <!-- Botão de Edição -->
         </td>
     </tr>
     {% endfor %}
