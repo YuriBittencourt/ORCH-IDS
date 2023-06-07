@@ -44,11 +44,25 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/rules', methods=['GET', 'POST', 'UPDATE'])
+@app.route('/rules', methods=['GET', 'POST', 'DELETE'])
 @authenticated_resource
 def rules():
-    if request.method == 'GET':
-        return render_template('regras.html', regras=list(mongo.db[mongo.collections['rules']].find()), title=name)
+    if request.method == 'POST':
+        print(request.form)
+
+    if request.method == 'DELETE':
+        try:
+            mongo.db[mongo.collections['rules']].delete_one({"_id": ObjectId(request.json["_id"])})
+        except Exception as e:
+            print(e)
+
+    rules_list = list(mongo.db[mongo.collections['rules']].find())
+    keys = []
+    if rules_list:
+        keys = list(rules_list[0].keys())
+        keys.remove('_id')
+
+    return render_template('rules.html', list=rules_list, keys=keys, title=name)
 
 
 @app.route('/blacklist', methods=['GET', 'POST', 'DELETE'])
