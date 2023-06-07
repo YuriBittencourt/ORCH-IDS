@@ -1,5 +1,3 @@
-from utils.mongo import Mongo
-from utils.auth_decorator import authenticated_resource
 from flask import Flask, render_template, request, redirect, session, url_for
 from dotenv import dotenv_values
 from bson import ObjectId
@@ -16,14 +14,6 @@ name = "NIDS"
 
 credentials = {"username": config["ADMIN_USER"], "password": config["ADMIN_PASSWORD"]}
 
-mongo = Mongo()
-
-collections = {
-    'packets': config['MONGO_COLLECTION_QUEUE'],
-    'rules': config['MONGO_COLLECTION_RULES'],
-    'blacklist': config['MONGO_COLLECTION_BLACKLISTED'],
-    'alerts': config['MONGO_COLLECTION_ALERTS']
-}
 
 @app.route('/')
 @authenticated_resource
@@ -89,7 +79,7 @@ def blacklist():
 @app.route('/alerts')
 @authenticated_resource
 def alerts():
-    return render_template('alertas.html', title=name)
+    return render_template('alerts.html', title=name)
 
 
 @app.route('/configurations/')
