@@ -6,6 +6,7 @@ from utils.mongo import mongo_instance as mongo
 from utils.auth_decorator import authenticated_resource
 from utils.setup_db import setup_db
 import utils.populate_db as pop
+from utils.schema import schemas
 
 app = Flask(__name__)
 config = dotenv_values()
@@ -57,10 +58,7 @@ def rules():
             print(e)
 
     rules_list = list(mongo.db[mongo.collections['rules']].find())
-    keys = []
-    if rules_list:
-        keys = list(rules_list[0].keys())
-        keys.remove('_id')
+    keys = list(schemas['rules']['properties'].keys())
 
     return render_template('rules.html', list=rules_list, keys=keys, title=name)
 

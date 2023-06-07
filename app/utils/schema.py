@@ -98,7 +98,7 @@ class Schema:
                         'type': 'number',
                         'minimum': 0
                     },
-                    'direction: ': {
+                    'direction': {
                         'type': 'string',
                         'enum': ['in', 'out', 'both']
                     },
@@ -199,3 +199,6 @@ class Schema:
             'rules': [{'value': 'name', 'unique': True}, {'value': [('severity', -1)], 'unique': False}],
             'alerts': [{'value': [('severity', -1), ('timestamp', -1)], 'unique': False}]
         }
+
+
+schemas = Schema().schemas
