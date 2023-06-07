@@ -19,7 +19,6 @@
 
 <script>
     function deleteEntry(btn){
-        console.log(btn.value)
         let row = btn.parentNode.parentNode;
         fetch('/blacklist', {
             method: 'DELETE',
