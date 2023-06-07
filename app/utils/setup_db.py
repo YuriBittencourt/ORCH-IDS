@@ -1,7 +1,8 @@
-from mongo import Mongo
-from schema import Schema
+from .mongo import mongo_instance as mongo
+from .schema import Schema
+
+
 def setup_db():
-    mongo = Mongo()
     schema = Schema()
 
     # Drop collections if they do exist and create:

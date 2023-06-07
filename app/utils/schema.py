@@ -18,7 +18,7 @@ class Schema:
                         'enum': [4, 6]
                     },
                     'reason': {
-                        'type': 'string',
+                        'type': 'string'
                     }
                 }
             },
@@ -38,29 +38,29 @@ class Schema:
                     ],
                 'properties': {
                     'timestamp': {
-                        'type': 'number',
+                        'type': 'number'
                     },
                     'source_mac': {
-                        'type': 'string',
+                        'type': 'string'
                     },
                     'destination_mac': {
-                        'type': 'string',
+                        'type': 'string'
                     },
                     'source_ip': {
-                        'type': 'string',
+                        'type': 'string'
                     },
                     'destination_ip': {
-                        'type': 'string',
+                        'type': 'string'
                     },
                     'version': {
                         'type': 'number',
-                        'enum' : [4,6],
+                        'enum': [4, 6]
                     },
                     'length': {
-                        'type': 'number',
+                        'type': 'number'
                     },
                     'protocol': {
-                        'type': 'string',
+                        'type': 'string'
                     },
                     'source_port': {
                         'type': 'number'
@@ -78,12 +78,124 @@ class Schema:
                 }
             },
 
-            'rules': {},
+            'rules': {
+                'bsonType': 'object',
+                'required':
+                    [
+                        'name',
+                        'description',
+                        'severity',
+                        'direction'
+                    ],
+                'properties': {
+                    'name': {
+                        'type': 'string'
+                    },
+                    'description': {
+                        'type': 'string'
+                    },
+                    'severity': {
+                        'type': 'number',
+                        'minimum': 0
+                    },
+                    'direction: ': {
+                        'type': 'string',
+                        'enum': ['in', 'out', 'both']
+                    },
+                    'source_mac': {
+                        'type': 'string',
+                    },
+                    'destination_mac': {
+                        'type': 'string',
+                    },
+                    'source_ip': {
+                        'type': 'string',
+                    },
+                    'destination_ip': {
+                        'type': 'string',
+                    },
+                    'version': {
+                        'type': 'number',
+                        'enum': [4, 6]
+                    },
+                    'length': {
+                        'type': 'number',
+                    },
+                    'protocol': {
+                        'type': 'string',
+                    },
+                    'source_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    },
+                    'destination_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    },
+                    'flags': {
+                        'type': 'array',
+                        'items': {
+                            'type': 'string'
+                        }
+                    }
+                }
 
-            'alerts': {}
+            },
+
+            'alerts': {
+                'bsonType': 'object',
+                'required':
+                    [
+                        'name',
+                        'severity',
+                        'timestamp',
+                        'description',
+                    ],
+                'properties': {
+                    'name': {
+                        'type': 'string'
+                    },
+                    'severity': {
+                        'type': 'number',
+                        'minimum': 0
+                    },
+                    'description': {
+                        'type': 'string'
+                    },
+                    'source_ip': {
+                        'type': 'string'
+                    },
+                    'destination_ip': {
+                        'type': 'string'
+                    },
+                    'source_mac': {
+                        'type': 'string'
+                    },
+                    'destination_mac': {
+                        'type': 'string'
+                    },
+                    'length': {
+                        'type': 'number',
+                    },
+                    'source_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    },
+                    'destination_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    }
+                }
+            }
         }
 
         self.indexes = {
             'blacklist': [{'value': 'ip', 'unique': True}],
-            'packets': [{'value': [('timestamp', 1)], 'unique': False}]
+            'packets': [{'value': [('timestamp', 1)], 'unique': False}],
+            'rules': [{'value': 'name', 'unique': True}, {'value': [('severity', -1)], 'unique': False}],
+            'alerts': [{'value': [('severity', -1), ('timestamp', -1)], 'unique': False}]
         }

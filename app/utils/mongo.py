@@ -13,3 +13,6 @@ class Mongo:
             'blacklist': config['MONGO_COLLECTION_BLACKLISTED'],
             'alerts': config['MONGO_COLLECTION_ALERTS']
         }
+
+
+mongo_instance = Mongo()
