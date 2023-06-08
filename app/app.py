@@ -108,7 +108,22 @@ def alerts():
         except Exception as e:
             print(e)
 
-    alerts_list = list(mongo.db[mongo.collections['alerts']].find())
+    alerts_list = list(mongo.db[mongo.collections['alerts']].aggregate([
+        {
+            '$match': {}
+        }, {
+            '$addFields': {
+                'timestamp': {
+                    '$toDate': '$timestamp'
+                }
+            }
+        }, {
+            '$sort': {
+                'timestamp': -1,
+                'severity': -1
+            }
+        }
+    ]))
     keys = list(schemas['alerts']['properties'].keys())
 
     return render_template('alerts.html', list=alerts_list, keys=keys, title=name, route='/alerts')
