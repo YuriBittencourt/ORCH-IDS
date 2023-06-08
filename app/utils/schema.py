@@ -153,7 +153,9 @@ class Schema:
                         'name',
                         'severity',
                         'timestamp',
-                        'description',
+                        'protocol',
+                        'source_ip',
+                        'destination_ip'
                     ],
                 'properties': {
                     'name': {
@@ -163,8 +165,9 @@ class Schema:
                         'type': 'number',
                         'minimum': 0
                     },
-                    'description': {
-                        'type': 'string'
+                    'timestamp': {
+                        'type': 'number',
+                        'minimum': 0
                     },
                     'source_ip': {
                         'type': 'string'
