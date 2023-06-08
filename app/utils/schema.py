@@ -105,9 +105,11 @@ class Schema:
                     },
                     'max_length': {
                         'type': 'number',
+                        'minimum': 0
                     },
                     'min_length': {
                         'type': 'number',
+                        'minimum': 0
                     },
                     'protocol': {
                         'type': 'string',
