@@ -6,7 +6,7 @@ class Schema:
                 'required':
                     [
                         'ip',
-                        'version',
+                        'ip_version',
                         'reason'
                     ],
                 'properties': {
@@ -30,7 +30,7 @@ class Schema:
                         'timestamp',
                         'source_ip',
                         'destination_ip',
-                        'version',
+                        'ip_version',
                         'length',
                         'protocol'
                     ],
@@ -44,7 +44,7 @@ class Schema:
                     'destination_ip': {
                         'type': 'string'
                     },
-                    'version': {
+                    'ip_version': {
                         'type': 'number',
                         'enum': [4, 6]
                     },
