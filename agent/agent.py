@@ -17,7 +17,7 @@ queue = []
 
 
 def process_packet(packet):
-    #print(packet.show())
+    print(packet.show())
 
     if IP not in packet:
         return
