@@ -17,7 +17,3 @@ def setup_db():
 
     # List created collections:
     print(mongo.db.list_collection_names())
-
-
-if __name__ == '__main__':
-    setup_db()

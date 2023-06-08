@@ -1,19 +1,17 @@
 from pymongo import MongoClient
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 from scapy.all import *
 from datetime import datetime
 
-load_dotenv()
+config = dotenv_values()
 
-mongo_host = os.getenv('MONGO_HOST')
-mongo_port = int(os.getenv('MONGO_PORT'))
-mongo_db = os.getenv('MONGO_DB')
-collection = os.getenv('MONGO_COLLECTION_QUEUE')
-client = MongoClient(host=mongo_host, port=mongo_port)
-
-
+mongo_db = config['MONGO_DB']
+client = MongoClient(host=config['MONGO_HOST'], port=int(config['MONGO_PORT']))
 db = client[mongo_db]
+collection = db[config['MONGO_COLLECTION_QUEUE']]
 queue = []
+
+interface = config['NETWORK_INTERFACE']
 
 
 def process_packet(packet):
@@ -24,6 +22,7 @@ def process_packet(packet):
 
     # Ethernet header
     packet_info = {
+        "captured_by": get_if_addr(interface),
         "timestamp": int(datetime.now().timestamp() * 1000),
     }
 
@@ -59,13 +58,11 @@ def process_packet(packet):
 
 def save_packet(queue):
     if len(queue) == 10:
-        db[collection].insert_many(queue)
+        collection.insert_many(queue)
         queue.clear()
 
 
 def capture_packets():
-
-    interface = os.getenv('NETWORK_INTERFACE')
 
     # Iniciando a captura de pacotes
     sniff(iface=interface, prn=process_packet, store=False)
