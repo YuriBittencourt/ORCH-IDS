@@ -19,7 +19,7 @@ credentials = {'username': config['ADMIN_USER'], 'password': config['ADMIN_PASSW
 @app.route('/')
 @authenticated_resource
 def home():
-    return render_template('dashboard.html', title=name)
+    return render_template('home.html', title=name)
 
 
 @app.route('/login', methods=['GET', 'POST'])
