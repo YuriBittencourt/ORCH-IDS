@@ -1,6 +1,29 @@
 {% extends 'components/base.html' %}
 
 {% block content %}
-<h1>Página de Alertas</h1>
-<p>Conteúdo da página de Alertas...</p>
+<div class="d-flex align-items-center justify-content-between border-bottom">
+    <h1>Alerts</h1>
+</div>
+
+{% if list %}
+{% include 'components/table.html' %}
+
+{% else %}
+<p> There are no alerts! </p>
+{% endif %}
+
+<script>
+    function deleteEntry(btn){
+        let row = btn.parentNode.parentNode;
+        fetch('/alerts', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ '_id': btn.value })
+        })
+        row.remove();
+    }
+</script>
+
 {% endblock %}
