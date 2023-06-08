@@ -12,6 +12,19 @@ body {
     display: flex;
 }
 
+table.table-fit {
+    width: auto;
+    table-layout: auto;
+}
+
+table.table-fit thead th, table.table-fit tfoot th {
+    width: auto;
+}
+
+table.table-fit tbody td, table.table-fit tfoot td {
+    width: auto;
+}
+
 .title{
     text-align: center;
     font-size: 10em;
@@ -41,6 +54,10 @@ body {
     border-radius: 0.3125em;
 }
 
+ul li{
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
 .green-btn {
     width: 100%;
     padding: 0.9375em;
