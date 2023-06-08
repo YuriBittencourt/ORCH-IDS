@@ -25,3 +25,17 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function deleteEntry(btn){
+        let row = btn.parentNode.parentNode;
+        fetch('{{route}}', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ '_id': btn.value })
+        })
+        row.remove();
+    }
+</script>

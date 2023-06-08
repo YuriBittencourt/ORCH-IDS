@@ -70,7 +70,7 @@ def rules():
     rules_list = list(mongo.db[mongo.collections['rules']].find())
     keys = list(schemas['rules']['properties'].keys())
 
-    return render_template('rules.html', list=rules_list, keys=keys, title=name)
+    return render_template('rules.html', list=rules_list, keys=keys, title=name, route='/rules')
 
 
 @app.route('/blacklist', methods=['GET', 'POST', 'DELETE'])
@@ -92,7 +92,7 @@ def blacklist():
     ban_list = list(mongo.db[mongo.collections['blacklist']].find())
     keys = list(schemas['blacklist']['properties'].keys())
 
-    return render_template('blacklist.html', list=ban_list, keys=keys, title=name)
+    return render_template('blacklist.html', list=ban_list, keys=keys, title=name, route='/blacklist')
 
 
 @app.route('/alerts', methods=['GET', 'DELETE'])
@@ -107,7 +107,7 @@ def alerts():
     alerts_list = list(mongo.db[mongo.collections['alerts']].find())
     keys = list(schemas['alerts']['properties'].keys())
 
-    return render_template('alerts.html', list=alerts_list, keys=keys, title=name)
+    return render_template('alerts.html', list=alerts_list, keys=keys, title=name, route='/alerts')
 
 
 @app.route('/configurations/')

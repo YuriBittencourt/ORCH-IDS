@@ -16,18 +16,4 @@
 <p> There are no rules! </p>
 {% endif %}
 
-<script>
-    function deleteEntry(btn){
-        let row = btn.parentNode.parentNode;
-        fetch('/rules', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ '_id': btn.value })
-        })
-        row.remove();
-    }
-</script>
-
 {% endblock %}
