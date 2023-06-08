@@ -78,8 +78,12 @@ def rules():
 def blacklist():
     if request.method == 'POST':
         try:
-            new = {'ip': request.form['ip'], 'version': int(request.form['version']), 'reason': request.form['reason']}
+            new = {k: v if schemas['blacklist']['properties'][k]['type'] == 'string'
+            else int(v) if schemas['blacklist']['properties'][k]['type'] == 'number'
+            else bool(v) for k, v in request.form.items() if v}
+
             mongo.db[mongo.collections['blacklist']].insert_one(new)
+
         except Exception as e:
             print(e)
 
