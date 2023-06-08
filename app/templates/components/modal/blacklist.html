@@ -3,28 +3,28 @@
 {% extends 'components/modal/modal.html' %}
 
 {% block form %}
-            <div class="modal-body">
-                <form id="addToBlacklist" method="POST" action="{{ url_for('blacklist')}}" onsubmit="return validateForm()">
-                    <div class="form-row d-flex justify-content-between">
-                        <div class="form-group col-md-8">
-                            <label for="ip" class="form-label">IP:</label>
-                            <input type="text" class="form-control" id="ip" name="ip" required>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="version" class="form-label">Version:</label>
-                            <select name="version" class="form-control" id="version" required form="addToBlacklist">
-                                <option selected value=4>4</option>
-                                <option value=6>6</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reason" class="form-label">Reason:</label>
-                        <input type="text" class="form-control" id="reason" name="reason" required>
-                    </div>
-                    <button type="submit" class="btn green-btn">Submit</button>
-                </form>
+<div class="modal-body">
+    <form id="addToBlacklist" method="POST" action="{{ url_for('blacklist')}}" onsubmit="return validateForm()">
+        <div class="form-row d-flex justify-content-between">
+            <div class="form-group col-md-8">
+                <label for="ip" class="form-label">Unique IP:</label>
+                <input type="text" class="form-control" id="ip" name="ip" required>
             </div>
+            <div class="form-group col-md-2">
+                <label for="version" class="form-label">Version:</label>
+                <select name="version" class="form-control" id="version" required form="addToBlacklist">
+                    <option selected value=4>4</option>
+                    <option value=6>6</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="reason" class="form-label">Reason:</label>
+            <input type="text" class="form-control" id="reason" name="reason" required>
+        </div>
+        <button type="submit" class="btn green-btn">Submit</button>
+    </form>
+</div>
 {% endblock %}
 {% block validateForm %}
 <script>
