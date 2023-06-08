@@ -91,8 +91,7 @@ class Schema:
                         'minimum': 0
                     },
                     'direction': {
-                        'type': 'string',
-                        'enum': ['in', 'out', 'both']
+                        'type': 'boolean',
                     },
                     'source_ip': {
                         'type': 'string',
@@ -104,7 +103,10 @@ class Schema:
                         'type': 'number',
                         'enum': [4, 6]
                     },
-                    'length': {
+                    'max_length': {
+                        'type': 'number',
+                    },
+                    'min_length': {
                         'type': 'number',
                     },
                     'protocol': {
@@ -122,11 +124,15 @@ class Schema:
                     },
                     'count': {
                         'type': 'number',
-                        'minimum': 0
+                        'minimum': 1
                     },
                     'interval': {
                         'type': 'number',
-                        'minimum': 0
+                        'minimum': 1
+                    },
+                    'track': {
+                        'type': 'string',
+                        'enum': ['by_src', 'by_dst']
                     },
                     'flags': {
                         'type': 'array',

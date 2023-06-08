@@ -92,12 +92,24 @@ def rules():
             'name': "PING",
             'description': "someone pinged the host 192.168.0.124",
             'severity':  2,
-            'direction': 'in',
+            'direction': True,
             'source_ip': "177.230.25.122",
             'destination_ip': '192.168.0.124',
             'ip_version': 4,
             'protocol': 'ICMP',
             'count': 1,
+            'interval': 0
+        },
+        {
+            'name': "PortScan",
+            'description': "someone portscanned the host 192.168.0.120",
+            'severity': 2,
+            'direction': True,
+            'destination_ip': '192.168.0.120',
+            'min_length': 10,
+            'ip_version': 4,
+            'protocol': 'TCP',
+            'count': 40,
             'interval': 0
         },
     ]
