@@ -11,7 +11,7 @@ from utils.schema import schemas
 app = Flask(__name__)
 config = dotenv_values()
 app.secret_key = config['SECRET_KEY']
-name = "NIDS"
+name = "ORCH-IDS"
 
 credentials = {"username": config["ADMIN_USER"], "password": config["ADMIN_PASSWORD"]}
 
@@ -19,8 +19,7 @@ credentials = {"username": config["ADMIN_USER"], "password": config["ADMIN_PASSW
 @app.route('/')
 @authenticated_resource
 def home():
-    username = session['username']
-    return render_template('dashboard.html', username=username, title=name)
+    return render_template('dashboard.html', title=name)
 
 
 @app.route('/login', methods=['GET', 'POST'])
