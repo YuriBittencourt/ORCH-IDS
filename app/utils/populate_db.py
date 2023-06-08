@@ -116,4 +116,25 @@ def rules():
 
 
 def alerts():
-    pass
+    documents = [
+        {
+            'name': "PING",
+            'severity': 2,
+            'timestamp': 1686044761376,
+            'protocol': 'ICMP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+
+        {
+            'name': "PortScan",
+            'severity': 2,
+            'timestamp': 1686044761377,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.125',
+            'destination_ip': '192.168.0.120'
+        },
+    ]
+    mongo.db[mongo.collections['alerts']].delete_many({})
+    mongo.db[mongo.collections['alerts']].insert_many(documents, ordered=False)
+

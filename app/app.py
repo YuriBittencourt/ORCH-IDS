@@ -90,18 +90,24 @@ def blacklist():
             print(e)
 
     ban_list = list(mongo.db[mongo.collections['blacklist']].find())
-    keys = []
-    if ban_list:
-        keys = list(ban_list[0].keys())
-        keys.remove('_id')
+    keys = list(schemas['blacklist']['properties'].keys())
 
     return render_template('blacklist.html', list=ban_list, keys=keys, title=name)
 
 
-@app.route('/alerts')
+@app.route('/alerts', methods=['GET', 'DELETE'])
 @authenticated_resource
 def alerts():
-    return render_template('alerts.html', title=name)
+    if request.method == 'DELETE':
+        try:
+            mongo.db[mongo.collections['alerts']].delete_one({"_id": ObjectId(request.json["_id"])})
+        except Exception as e:
+            print(e)
+
+    alerts_list = list(mongo.db[mongo.collections['alerts']].find())
+    keys = list(schemas['alerts']['properties'].keys())
+
+    return render_template('alerts.html', list=alerts_list, keys=keys, title=name)
 
 
 @app.route('/configurations/')
