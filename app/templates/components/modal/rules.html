@@ -123,6 +123,17 @@
     }
 
     function validateForm() {
+
+        let name = document.forms["newRule"]["name"].value
+        {% if list %}
+            {% for i in list %}
+                if (name === "{{i['name']}}"){
+                    alert("Invalid Name!")
+                    return false
+                }
+            {% endfor %}
+        {%endif %}
+
         let src_ip = document.forms["newRule"]["source_ip"].value.trim();
         let dst_ip = document.forms["newRule"]["destination_ip"].value.trim();
 

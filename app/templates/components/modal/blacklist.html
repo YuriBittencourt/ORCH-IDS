@@ -11,8 +11,8 @@
                 <input type="text" class="form-control" id="ip" name="ip" required>
             </div>
             <div class="form-group col-md-2">
-                <label for="version" class="form-label">Version:</label>
-                <select name="version" class="form-control" id="version" required form="addToBlacklist">
+                <label for="ip_version" class="form-label">Version:</label>
+                <select name="ip_version" class="form-control" id="ip_version" required form="addToBlacklist">
                     <option selected value=4>4</option>
                     <option value=6>6</option>
                 </select>
@@ -29,8 +29,18 @@
 {% block validateForm %}
 <script>
     function validateForm() {
-        let ip = document.forms["addToBlacklist"]["ip"].value;
-        let version = document.forms["addToBlacklist"]["version"].value;
+
+        let ip = document.forms["addToBlacklist"]["ip"].value
+        {% if list %}
+            {% for i in list %}
+                if (ip === "{{i['ip']}}"){
+                    alert("IP already blacklisted!")
+                    return false
+                }
+            {% endfor %}
+        {%endif %}
+
+        let version = document.forms["addToBlacklist"]["ip_version"].value;
 
         let regex = /^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
         if (version === "4") {
