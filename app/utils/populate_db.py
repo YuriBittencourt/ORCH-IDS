@@ -88,17 +88,18 @@ def packets():
 
 def rules():
     documents = [
-        {'name': "PING",
-         'description': "someone pinged the host 192.168.0.124",
-         'severity':  2,
-         'direction': 'in',
-         'source_ip': "177.230.25.122",
-         'destination_ip': '192.168.0.124',
-         'ip_version': 4,
-         'protocol': 'ICMP',
-         'count': 1,
-         'interval': 0
-         },
+        {
+            'name': "PING",
+            'description': "someone pinged the host 192.168.0.124",
+            'severity':  2,
+            'direction': 'in',
+            'source_ip': "177.230.25.122",
+            'destination_ip': '192.168.0.124',
+            'ip_version': 4,
+            'protocol': 'ICMP',
+            'count': 1,
+            'interval': 0
+        },
     ]
     mongo.db[mongo.collections['rules']].delete_many({})
     mongo.db[mongo.collections['rules']].insert_many(documents, ordered=False)
