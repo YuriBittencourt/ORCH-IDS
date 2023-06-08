@@ -11,9 +11,9 @@ from utils.schema import schemas
 app = Flask(__name__)
 config = dotenv_values()
 app.secret_key = config['SECRET_KEY']
-name = "ORCH-IDS"
+name = 'ORCH-IDS'
 
-credentials = {"username": config["ADMIN_USER"], "password": config["ADMIN_PASSWORD"]}
+credentials = {'username': config['ADMIN_USER'], 'password': config['ADMIN_PASSWORD']}
 
 
 @app.route('/')
@@ -28,7 +28,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username == credentials["username"] and password == credentials["password"]:
+        if username == credentials['username'] and password == credentials['password']:
             session['username'] = username
             return redirect(url_for('home'))
         else:
@@ -53,8 +53,8 @@ def rules():
             else int(v) if schemas['rules']['properties'][k]['type'] == 'number'
             else bool(v) for k, v in request.form.items() if v}
 
-            if "direction" not in new:
-                new["direction"] = False
+            if 'direction' not in new:
+                new['direction'] = False
 
             mongo.db[mongo.collections['rules']].insert_one(new)
 
@@ -63,7 +63,7 @@ def rules():
 
     if request.method == 'DELETE':
         try:
-            mongo.db[mongo.collections['rules']].delete_one({"_id": ObjectId(request.json["_id"])})
+            mongo.db[mongo.collections['rules']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
@@ -78,14 +78,14 @@ def rules():
 def blacklist():
     if request.method == 'POST':
         try:
-            new = {"ip": request.form['ip'], "version": int(request.form['version']), 'reason': request.form['reason']}
+            new = {'ip': request.form['ip'], 'version': int(request.form['version']), 'reason': request.form['reason']}
             mongo.db[mongo.collections['blacklist']].insert_one(new)
         except Exception as e:
             print(e)
 
     if request.method == 'DELETE':
         try:
-            mongo.db[mongo.collections['blacklist']].delete_one({"_id": ObjectId(request.json["_id"])})
+            mongo.db[mongo.collections['blacklist']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
@@ -100,7 +100,7 @@ def blacklist():
 def alerts():
     if request.method == 'DELETE':
         try:
-            mongo.db[mongo.collections['alerts']].delete_one({"_id": ObjectId(request.json["_id"])})
+            mongo.db[mongo.collections['alerts']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
@@ -114,19 +114,19 @@ def alerts():
 @app.route('/configurations/<action>')
 @authenticated_resource
 def configurations(action=None):
-    if action == "setup_db":
+    if action == 'setup_db':
         setup_db()
 
-    elif action == "populate_rules":
+    elif action == 'populate_rules':
         pop.rules()
 
-    elif action == "populate_blacklist":
+    elif action == 'populate_blacklist':
         pop.blacklist()
 
-    elif action == "populate_packets":
+    elif action == 'populate_packets':
         pop.packets()
 
-    elif action == "populate_alerts":
+    elif action == 'populate_alerts':
         pop.alerts()
 
     return render_template('configurations.html', title=name)
@@ -134,12 +134,12 @@ def configurations(action=None):
 
 if __name__ == '__main__':
     if config['ENVIRONMENT'] == 'DEV':
-        app.run(host="0.0.0.0", port=config['PORT'], debug=True)
+        app.run(host='0.0.0.0', port=config['PORT'], debug=True)
 
     elif config['ENVIRONMENT'] == 'PROD':
         from waitress import serve
 
-        serve(app, host="0.0.0.0", port=config['PORT'])
+        serve(app, host='0.0.0.0', port=config['PORT'])
 
     else:
         raise ValueError('WRONG environment variable')
