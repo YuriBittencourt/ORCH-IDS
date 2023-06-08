@@ -97,8 +97,6 @@ def rules():
             'destination_ip': '192.168.0.124',
             'ip_version': 4,
             'protocol': 'ICMP',
-            'count': 1,
-            'interval': 0
         },
         {
             'name': "PortScan",
@@ -110,7 +108,7 @@ def rules():
             'ip_version': 4,
             'protocol': 'TCP',
             'count': 40,
-            'interval': 0
+            'interval': 10
         },
     ]
     mongo.db[mongo.collections['rules']].delete_many({})
