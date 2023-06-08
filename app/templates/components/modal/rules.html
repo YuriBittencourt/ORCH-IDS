@@ -1,0 +1,148 @@
+{% set modal_title='New Rule' %}
+
+{% extends 'components/modal/modal.html' %}
+
+{% block form %}
+<div class="modal-body">
+    <form id="newRule" method="POST" action="{{ url_for('rules')}}" onsubmit="return validateForm()">
+        <div class="form-row d-flex justify-content-between mb-3">
+            <div class="form-group col-md-8">
+                <label for="name" class="form-label">Unique Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="severity" class="form-label">Severity:</label>
+                <input type="number" class="form-control" id="severity" name="severity" required min="0">
+            </div>
+        </div>
+
+        <div class="form-group col-md-auto mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" required>
+        </div>
+
+        <div class="form-group form-check mb-3">
+            <label class="form-check-label" for="direction">Check this if this rule if direction-sensitive</label>
+            <input type="checkbox" class="form-check-input" id="direction" name="direction" value=true>
+        </div>
+
+        <p>Leaving any field below empty will work as 'any' value</p>
+
+        <label for="source" class="form-label">Source:</label>
+        <div id="source" class="form-row d-flex justify-content-between mb-3 p-2 border">
+            <div class="form-group col-md-8">
+                <label for="source_ip" class="form-label">IP:</label>
+                <input type="text" class="form-control" id="source_ip" name="source_ip">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="source_port" class="form-label">Port:</label>
+                <input type="number" class="form-control" id="source_port" name="source_port" min="0" max="65536">
+            </div>
+        </div>
+
+        <label for="destination" class="form-label">Destination:</label>
+        <div id="destination" class="form-row d-flex justify-content-between mb-3 p-2 border">
+            <div class="form-group col-md-8">
+                <label for="destination_ip" class="form-label">IP:</label>
+                <input type="text" class="form-control" id="destination_ip" name="destination_ip">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="destination_port" class="form-label">Port:</label>
+                <input type="number" class="form-control" id="destination_port" name="destination_port" min="0" max="65536">
+            </div>
+        </div>
+
+        <div class="form-row d-flex justify-content-between mb-3">
+            <div class="form-group col-md-4">
+                <label for="protocol" class="form-label">Protocol:</label>
+                <select name="protocol" class="form-control" id="protocol" form="newRule" onchange="disableFlags(this)">
+                    <option selected value="">ANY</option>
+                    <option value="tcp">TCP</option>
+                    <option value="udp">UDP</option>
+                    <option value="icmp">ICMP</option>
+                </select>
+
+                <label for="flags" class="form-label">TCP Flags:</label>
+                <select name="flags" class="form-control" id="flags" form="newRule" disabled="">
+                    <option selected value="">NONE</option>
+                    <option value="S">SYN</option>
+                    <option value="F">FIN</option>
+                    <option value="R">RST</option>
+                    <option value="P">PSH</option>
+                    <option value="A">ACK</option>
+                    <option value="U">URG</option>
+                    <option value="E">ECE</option>
+                    <option value="C">CWR</option>
+                </select>
+            </div>
+
+            <div id="length" class="form-group col-md-4">
+                <label for="minimum" class="form-label">Payload Min length:</label>
+                <input type="number" class="form-control" id="minimum" name="min_length" min="0">
+                <label for="maximum" class="form-label">Payload Max length:</label>
+                <input type="number" class="form-control" id="maximum" name="max_length" min="0">
+            </div>
+        </div>
+
+        <label for="detection_filter" class="form-label">Detection Filter:</label>
+        <div id="detection_filter" class="form-row d-flex justify-content-between mb-3 p-2 border">
+            <div class="form-group col-md-4">
+                <label for="count" class="form-label">Count:</label>
+                <input type="text" class="form-control" id="count" name="count"  min="1">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="interval" class="form-label">Interval (Seconds):</label>
+                <input type="number" class="form-control" id="interval" name="interval"  min="1">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="track" class="form-label">Track by:</label>
+                <select name="track" class="form-control" id="track" form="newRule">
+                    <option selected value="">NONE</option>
+                    <option value="by_src">Source</option>
+                    <option value="by_dst">Destination</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn green-btn">Submit</button>
+    </form>
+</div>
+{% endblock %}
+{% block validateForm %}
+<script>
+
+    function disableFlags(protocol) {
+        let flags = document.forms["newRule"]["flags"];
+        if(protocol.value === 'tcp'){
+            flags.disabled = false
+            return
+        }
+        flags.disabled = true
+        flags.value=""
+
+    }
+
+    function validateForm() {
+        let src_ip = document.forms["newRule"]["source_ip"].value.trim();
+        let dst_ip = document.forms["newRule"]["destination_ip"].value.trim();
+
+        let ip_regex = /^((?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4})|((\d{1,3}\.){3}\d{1,3})$/;
+
+        let valid_src_ip = src_ip === "" || ip_regex.test(src_ip);
+        let valid_dst_ip = dst_ip === "" || ip_regex.test(dst_ip);
+        if (!valid_src_ip || !valid_dst_ip){
+            alert("Invalid IP format");
+            return false;
+        }
+
+        let min_length = parseInt(document.forms["newRule"]["min_length"].value);
+        let max_length = parseInt(document.forms["newRule"]["max_length"].value);
+
+        if (max_length < min_length){
+            alert("Payload max length can't be lesser than min length")
+            return false;
+        }
+
+    }
+</script>
+{% endblock %}
