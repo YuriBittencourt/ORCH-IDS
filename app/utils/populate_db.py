@@ -22,7 +22,8 @@ def packets():
             'length': 300,
             'protocol': 'UDP',
             'source_port': 54380,
-            'destination_port': 50002
+            'destination_port': 50002,
+            'captured_by': 'dummy'
         },
         {
             'timestamp': 1686044761380,
@@ -32,7 +33,8 @@ def packets():
             'length': 300,
             'protocol': 'UDP',
             'source_port': 54380,
-            'destination_port': 50002
+            'destination_port': 50002,
+            'captured_by': 'dummy'
         },
         {
             'timestamp': 1686044761381,
@@ -42,7 +44,8 @@ def packets():
             'length': 300,
             'protocol': 'UDP',
             'source_port': 54380,
-            'destination_port': 50002
+            'destination_port': 50002,
+            'captured_by': 'dummy'
         },
         {
             'timestamp': 1686044761434,
@@ -56,7 +59,8 @@ def packets():
             'flags': [
                 'P',
                 'A'
-            ]
+            ],
+            'captured_by': 'dummy'
         },
         {
             'timestamp': 1686044761447,
@@ -66,7 +70,8 @@ def packets():
             'length': 71,
             'protocol': 'UDP',
             'source_port': 55612,
-            'destination_port': 50002
+            'destination_port': 50002,
+            'captured_by': 'dummy'
         },
         {
             'timestamp': 1686044761452,
@@ -79,7 +84,8 @@ def packets():
             'destination_port': 58964,
             'flags': [
                 'A'
-            ]
+            ],
+            'captured_by': 'dummy'
         }
     ]
     mongo.db[mongo.collections['packets']].delete_many({})

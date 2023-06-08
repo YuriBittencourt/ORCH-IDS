@@ -32,7 +32,8 @@ class Schema:
                         'destination_ip',
                         'ip_version',
                         'length',
-                        'protocol'
+                        'protocol',
+                        'captured_by'
                     ],
                 'properties': {
                     'timestamp': {
@@ -66,6 +67,9 @@ class Schema:
                         'items': {
                             'type': 'string'
                         }
+                    },
+                    'captured_by': {
+                        'type': 'string'
                     }
                 }
             },
