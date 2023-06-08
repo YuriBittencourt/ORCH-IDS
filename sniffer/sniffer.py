@@ -25,8 +25,6 @@ def process_packet(packet):
     # Ethernet header
     packet_info = {
         "timestamp": int(datetime.now().timestamp() * 1000),
-        "source_mac": packet.src,
-        "destination_mac": packet.dst,
     }
 
     packet = packet.payload

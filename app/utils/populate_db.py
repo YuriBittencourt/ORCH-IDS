@@ -16,8 +16,6 @@ def packets():
     documents =[
         {
             "timestamp": 1686044761376,
-            "source_mac": "70:85:c2:48:2d:23",
-            "destination_mac": "6c:5a:b0:8c:45:cb",
             "source_ip": "192.168.0.114",
             "destination_ip": "66.22.246.136",
             "version": 4,
@@ -28,8 +26,6 @@ def packets():
         },
         {
             "timestamp": 1686044761380,
-            "source_mac": "70:85:c2:48:2d:23",
-            "destination_mac": "6c:5a:b0:8c:45:cb",
             "source_ip": "192.168.0.114",
             "destination_ip": "66.22.246.136",
             "version": 4,
@@ -40,8 +36,6 @@ def packets():
         },
         {
             "timestamp": 1686044761381,
-            "source_mac": "70:85:c2:48:2d:23",
-            "destination_mac": "6c:5a:b0:8c:45:cb",
             "source_ip": "192.168.0.114",
             "destination_ip": "66.22.246.136",
             "version": 4,
@@ -52,8 +46,6 @@ def packets():
         },
         {
             "timestamp": 1686044761434,
-            "source_mac": "70:85:c2:48:2d:23",
-            "destination_mac": "6c:5a:b0:8c:45:cb",
             "source_ip": "192.168.0.114",
             "destination_ip": "162.159.129.235",
             "version": 4,
@@ -68,8 +60,6 @@ def packets():
         },
         {
             "timestamp": 1686044761447,
-            "source_mac": "70:85:c2:48:2d:23",
-            "destination_mac": "6c:5a:b0:8c:45:cb",
             "source_ip": "192.168.0.114",
             "destination_ip": "35.215.218.63",
             "version": 4,
@@ -80,8 +70,6 @@ def packets():
         },
         {
             "timestamp": 1686044761452,
-            "source_mac": "6c:5a:b0:8c:45:cb",
-            "destination_mac": "70:85:c2:48:2d:23",
             "source_ip": "162.159.129.235",
             "destination_ip": "192.168.0.114",
             "version": 4,
@@ -108,6 +96,8 @@ def rules():
          'destination_ip': '192.168.0.124',
          'ip_version': 4,
          'protocol': 'ICMP',
+         'count': 1,
+         'interval': 0
          },
     ]
     mongo.db[mongo.collections['rules']].delete_many({})

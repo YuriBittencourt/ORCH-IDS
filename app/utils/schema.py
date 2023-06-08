@@ -28,8 +28,6 @@ class Schema:
                 'required':
                     [
                         'timestamp',
-                        'source_mac',
-                        'destination_mac',
                         'source_ip',
                         'destination_ip',
                         'version',
@@ -39,12 +37,6 @@ class Schema:
                 'properties': {
                     'timestamp': {
                         'type': 'number'
-                    },
-                    'source_mac': {
-                        'type': 'string'
-                    },
-                    'destination_mac': {
-                        'type': 'string'
                     },
                     'source_ip': {
                         'type': 'string'
@@ -102,12 +94,6 @@ class Schema:
                         'type': 'string',
                         'enum': ['in', 'out', 'both']
                     },
-                    'source_mac': {
-                        'type': 'string',
-                    },
-                    'destination_mac': {
-                        'type': 'string',
-                    },
                     'source_ip': {
                         'type': 'string',
                     },
@@ -133,6 +119,14 @@ class Schema:
                         'type': 'number',
                         'minimum': 0,
                         'maximum': 65536
+                    },
+                    'count': {
+                        'type': 'number',
+                        'minimum': 0
+                    },
+                    'interval': {
+                        'type': 'number',
+                        'minimum': 0
                     },
                     'flags': {
                         'type': 'array',
@@ -168,12 +162,6 @@ class Schema:
                         'type': 'string'
                     },
                     'destination_ip': {
-                        'type': 'string'
-                    },
-                    'source_mac': {
-                        'type': 'string'
-                    },
-                    'destination_mac': {
                         'type': 'string'
                     },
                     'length': {
