@@ -1,4 +1,4 @@
-{% extends 'components/base.html' %}
+{% extends 'components/base.jinja2' %}
 
 {% block content %}
 <div class="d-flex align-items-center justify-content-between border-bottom">
@@ -7,10 +7,10 @@
 </div>
 
 
-{% include 'components/modal/rules.html' %}
+{% include 'components/modal/rules.jinja2' %}
 
 {% if list %}
-{% include 'components/table.html' %}
+{% include 'components/table.jinja2' %}
 
 {% else %}
 <p> There are no rules! </p>

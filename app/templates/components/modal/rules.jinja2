@@ -1,6 +1,6 @@
 {% set modal_title='New Rule' %}
 
-{% extends 'components/modal/modal.html' %}
+{% extends 'components/modal/modal.jinja2' %}
 
 {% block form %}
 <div class="modal-body">
@@ -156,13 +156,15 @@
 
         let count = document.forms["newRule"]["count"].value;
         let interval = document.forms["newRule"]["interval"].value;
-        if ((count && interval) || (!count && !interval))
+        console.log(count, interval)
+        if ((!count && interval) || (count && !interval))
         {
             alert("Count and Interval Must both have a value or none at all")
             return false;
         }
 
         let track = document.forms["newRule"]["track"].value;
+        console.log(track)
         if(track && !count){
             alert("Track can only be set if the interval and count are set as well")
             return false;

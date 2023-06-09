@@ -19,7 +19,7 @@ credentials = {'username': config['ADMIN_USER'], 'password': config['ADMIN_PASSW
 @app.route('/')
 @authenticated_resource
 def home():
-    return render_template('home.html', title=name)
+    return render_template('home.jinja2', title=name)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -32,9 +32,9 @@ def login():
             session['username'] = username
             return redirect(url_for('home'))
         else:
-            return render_template('login.html', error='Invalid Credentials!')
+            return render_template('login.jinja2', error='Invalid Credentials!')
 
-    return render_template('login.html', title=name)
+    return render_template('login.jinja2', title=name)
 
 
 @app.route('/logout')
@@ -70,7 +70,7 @@ def rules():
     rules_list = list(mongo.db[mongo.collections['rules']].find())
     keys = list(schemas['rules']['properties'].keys())
 
-    return render_template('rules.html', list=rules_list, keys=keys, title=name, route='/rules')
+    return render_template('rules.jinja2', list=rules_list, keys=keys, title=name, route='/rules')
 
 
 @app.route('/blacklist', methods=['GET', 'POST', 'DELETE'])
@@ -96,7 +96,7 @@ def blacklist():
     ban_list = list(mongo.db[mongo.collections['blacklist']].find())
     keys = list(schemas['blacklist']['properties'].keys())
 
-    return render_template('blacklist.html', list=ban_list, keys=keys, title=name, route='/blacklist')
+    return render_template('blacklist.jinja2', list=ban_list, keys=keys, title=name, route='/blacklist')
 
 
 @app.route('/alerts', methods=['GET', 'DELETE'])
@@ -126,7 +126,7 @@ def alerts():
     ]))
     keys = list(schemas['alerts']['properties'].keys())
 
-    return render_template('alerts.html', list=alerts_list, keys=keys, title=name, route='/alerts')
+    return render_template('alerts.jinja2', list=alerts_list, keys=keys, title=name, route='/alerts')
 
 
 @app.route('/configurations/')
@@ -167,7 +167,7 @@ def configurations(action=None):
         except Exception as e:
             print(e)
 
-    return render_template('configurations.html', title=name)
+    return render_template('configurations.jinja2', title=name)
 
 
 if __name__ == '__main__':
