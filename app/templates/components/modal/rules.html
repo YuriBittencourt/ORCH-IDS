@@ -101,6 +101,7 @@
                     <option selected value="">NONE</option>
                     <option value="by_src">Source</option>
                     <option value="by_dst">Destination</option>
+                    <option value="both">Both</option>
                 </select>
             </div>
         </div>
@@ -126,12 +127,12 @@
 
         let name = document.forms["newRule"]["name"].value
         {% if list %}
-            {% for i in list %}
-                if (name === "{{i['name']}}"){
-                    alert("Invalid Name!")
-                    return false
-                }
-            {% endfor %}
+        {% for i in list %}
+        if (name === "{{i['name']}}"){
+            alert("Invalid Name!")
+            return false
+        }
+        {% endfor %}
         {%endif %}
 
         let src_ip = document.forms["newRule"]["source_ip"].value.trim();
@@ -148,7 +149,6 @@
 
         let min_length = parseInt(document.forms["newRule"]["min_length"].value);
         let max_length = parseInt(document.forms["newRule"]["max_length"].value);
-
         if (max_length < min_length){
             alert("Payload max length can't be lesser than min length")
             return false;

@@ -138,7 +138,7 @@ class Schema:
                     },
                     'track': {
                         'type': 'string',
-                        'enum': ['by_src', 'by_dst']
+                        'enum': ['by_src', 'by_dst', 'both']
                     },
                     'flags': {
                         'type': 'string'
@@ -156,7 +156,8 @@ class Schema:
                         'timestamp',
                         'protocol',
                         'source_ip',
-                        'destination_ip'
+                        'destination_ip',
+                        'length'
                     ],
                 'properties': {
                     'name': {
