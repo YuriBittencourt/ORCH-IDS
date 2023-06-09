@@ -133,20 +133,39 @@ def alerts():
 @app.route('/configurations/<action>')
 @authenticated_resource
 def configurations(action=None):
+    execute = None
     if action == 'setup_db':
-        setup_db()
+        execute = setup_db
+
+    elif action == 'drop_rules':
+        execute = pop.drop_rules
 
     elif action == 'populate_rules':
-        pop.rules()
+        execute = pop.populate_rules
+
+    elif action == 'drop_blacklist':
+        execute = pop.drop_blacklist
 
     elif action == 'populate_blacklist':
-        pop.blacklist()
+        execute = pop.populate_blacklist
+
+    elif action == 'drop_packets':
+        execute = pop.drop_packets
 
     elif action == 'populate_packets':
-        pop.packets()
+        execute = pop.populate_packets
+
+    elif action == 'drop_alerts':
+        execute = pop.drop_alerts
 
     elif action == 'populate_alerts':
-        pop.alerts()
+        execute = pop.populate_alerts
+
+    if execute:
+        try:
+            execute()
+        except Exception as e:
+            print(e)
 
     return render_template('configurations.html', title=name)
 

@@ -1,18 +1,25 @@
 from .mongo import mongo_instance as mongo
 
 
-def blacklist():
+def drop_blacklist():
+    mongo.db[mongo.collections['blacklist']].delete_many({})
+
+
+def populate_blacklist():
     documents =[
         {'ip': '192.164.0.32', 'ip_version': 4, 'reason': 'botnet'},
         {'ip': '192.164.2.32', 'ip_version': 4, 'reason': 'suspicious'},
         {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7334', 'ip_version': 6, 'reason': 'botnet'},
         {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7335', 'ip_version': 6, 'reason': 'suspicious'},
     ]
-    mongo.db[mongo.collections['blacklist']].delete_many({})
     mongo.db[mongo.collections['blacklist']].insert_many(documents, ordered=False)
 
 
-def packets():
+def drop_packets():
+    mongo.db[mongo.collections['packets']].delete_many({})
+
+
+def populate_packets():
     documents =[
         {
             'timestamp': 1686044761376,
@@ -88,11 +95,14 @@ def packets():
             'captured_by': 'dummy'
         }
     ]
-    mongo.db[mongo.collections['packets']].delete_many({})
     mongo.db[mongo.collections['packets']].insert_many(documents, ordered=False)
 
 
-def rules():
+def drop_rules():
+    mongo.db[mongo.collections['rules']].delete_many({})
+
+
+def populate_rules():
     documents = [
         {
             'name': 'PING',
@@ -117,11 +127,14 @@ def rules():
             'interval': 10
         },
     ]
-    mongo.db[mongo.collections['rules']].delete_many({})
     mongo.db[mongo.collections['rules']].insert_many(documents, ordered=False)
 
 
-def alerts():
+def drop_alerts():
+    mongo.db[mongo.collections['alerts']].delete_many({})
+
+
+def populate_alerts():
     documents = [
         {
             'name': 'PING',
@@ -141,6 +154,5 @@ def alerts():
             'destination_ip': '192.168.0.120'
         },
     ]
-    mongo.db[mongo.collections['alerts']].delete_many({})
     mongo.db[mongo.collections['alerts']].insert_many(documents, ordered=False)
 

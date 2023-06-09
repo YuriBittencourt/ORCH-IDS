@@ -5,12 +5,26 @@
     <h1 class="mx-3">Configurations</h1>
 </div>
 
-<div class="d-flex align-items-center justify-content-center">
-    <a class="btn btn-danger mx-1" href="{{url_for('configurations')}}/setup_db">Recreate DB</a>
-    <a class="btn btn-danger mx-1" href="{{url_for('configurations')}}/populate_rules">Populate Rules</a>
-    <a class="btn btn-danger mx-1" href="{{url_for('configurations')}}/populate_blacklist">Populate Blacklist</a>
-    <a class="btn btn-danger mx-1" href="{{url_for('configurations')}}/populate_alerts">Populate Alerts</a>
-    <a class="btn btn-danger mx-1" href="{{url_for('configurations')}}/populate_packets">Populate Packets</a>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="btn-group-vertical mx-1 my-1">
+        <a class="btn btn-danger align-self-center" href="{{url_for('configurations')}}/setup_db">Create or <br> Recreate DB</a>
+    </div>
+    <div class="btn-group-vertical mx-1">
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/drop_rules">Purge Rules</a>
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/populate_rules">Populate Rules</a>
+    </div>
+    <div class="btn-group-vertical mx-1">
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/drop_blacklist">Purge Blacklist</a>
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/populate_blacklist">Populate Blacklist</a>
+    </div>
+    <div class="btn-group-vertical mx-1">
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/drop_alerts">Purge Alerts</a>
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/populate_alerts">Populate Alerts</a>
+    </div>
+    <div class="btn-group-vertical mx-1">
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/drop_packets">Purge Packets</a>
+        <a class="btn btn-danger my-1" href="{{url_for('configurations')}}/populate_packets">Populate Packets</a>
+    </div>
 </div>
 {% endblock %}
 
