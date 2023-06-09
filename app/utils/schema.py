@@ -170,6 +170,9 @@ class Schema:
                         'type': 'number',
                         'minimum': 0
                     },
+                    'protocol': {
+                        'type': 'string'
+                    },
                     'source_ip': {
                         'type': 'string'
                     },
