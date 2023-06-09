@@ -154,6 +154,19 @@
             return false;
         }
 
+        let count = document.forms["newRule"]["count"].value;
+        let interval = document.forms["newRule"]["interval"].value;
+        if ((count && interval) || (!count && !interval))
+        {
+            alert("Count and Interval Must both have a value or none at all")
+            return false;
+        }
+
+        let track = document.forms["newRule"]["track"].value;
+        if(track && !count){
+            alert("Track can only be set if the interval and count are set as well")
+            return false;
+        }
     }
 </script>
 {% endblock %}
