@@ -7,7 +7,8 @@ class Schema:
                     [
                         'ip',
                         'ip_version',
-                        'reason'
+                        'reason',
+                        'severity'
                     ],
                 'properties': {
                     'ip': {
@@ -19,6 +20,10 @@ class Schema:
                     },
                     'reason': {
                         'type': 'string'
+                    },
+                    'severity': {
+                        'type': 'number',
+                        'minimum': 0
                     }
                 }
             },

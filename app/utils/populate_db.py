@@ -7,10 +7,10 @@ def drop_blacklist():
 
 def populate_blacklist():
     documents =[
-        {'ip': '192.164.0.32', 'ip_version': 4, 'reason': 'botnet'},
-        {'ip': '192.164.2.32', 'ip_version': 4, 'reason': 'suspicious'},
-        {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7334', 'ip_version': 6, 'reason': 'botnet'},
-        {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7335', 'ip_version': 6, 'reason': 'suspicious'},
+        {'ip': '192.164.0.32', 'ip_version': 4, 'reason': 'botnet', 'severity': 5},
+        {'ip': '192.164.2.32', 'ip_version': 4, 'reason': 'suspicious', 'severity': 5},
+        {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7334', 'ip_version': 6, 'reason': 'botnet', 'severity': 5},
+        {'ip': '2001:0db8:85a3:0000:0000:8a2e:0370:7335', 'ip_version': 6, 'reason': 'suspicious', 'severity': 5},
     ]
     mongo.db[mongo.collections['blacklist']].insert_many(documents, ordered=False)
 
