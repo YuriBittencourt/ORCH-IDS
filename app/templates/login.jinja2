@@ -9,7 +9,7 @@
 <div class="login-container">
     <h1>Login</h1>
     {% if error %}
-    <div class="alert alert-danger">{{ error }}</div>
+        <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
     <form method="POST" action="{{ url_for('login')}}">
         <div class="mb-3">

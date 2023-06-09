@@ -4,7 +4,7 @@
         <tr>
             <th scope="col">#</th>
             {% for key in keys %}
-            <th scope="col">{{key}}</th>
+                <th scope="col">{{key}}</th>
             {% endfor %}
             <th scope="col-md-1"></th>
         </tr>
@@ -12,15 +12,15 @@
         <tbody>
 
         {% for item in list %}
-        <tr>
-            <th class="col-md-1">{{loop.index}}</th>
-            {% for key in keys %}
-            <td class="col-md-3">{{ item[key] }}</td>
-            {% endfor %}
-            <td class="col-md-1 align-items-center">
-                <button class="btn btn-danger col-md-auto align-items-center" value="{{item['_id']}}" onclick="deleteEntry(this)">Delete</button>
-            </td>
-        </tr>
+            <tr>
+                <th class="col-md-1">{{loop.index}}</th>
+                {% for key in keys %}
+                    <td class="col-md-3">{{ item[key] }}</td>
+                {% endfor %}
+                <td class="col-md-1 align-items-center">
+                    <button class="btn btn-danger col-md-auto align-items-center" value="{{item['_id']}}" onclick="deleteEntry(this)">Delete</button>
+                </td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
