@@ -141,10 +141,7 @@ class Schema:
                         'enum': ['by_src', 'by_dst']
                     },
                     'flags': {
-                        'type': 'array',
-                        'items': {
-                            'type': 'string'
-                        }
+                        'type': 'string'
                     }
                 }
 
