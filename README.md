@@ -1,9 +1,9 @@
 # ORCH-IDS
 ___
-This is the repository of my final paper for B.Sc. in Computer Science which consists in an simple yet powerful Intrusion Detection System, in the following lines I will explain its architecture and how to deploy it.
+This is the repository of my final paper for B.Sc. in Computer Science which consists in a simple yet powerful Intrusion Detection System, in the following lines I will explain its architecture and how to deploy it.
 
 ## Architecture
-The system is centered around it's database which in this case is a mongoDB, every part of the system communicates with the database.
+The system is centered around its database which in this case is a mongoDB, every part of the system communicates with the database.
 
 ### Services
 Basically we have 3 services:
