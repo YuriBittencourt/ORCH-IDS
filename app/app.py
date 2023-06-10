@@ -47,6 +47,7 @@ def logout():
 @app.route('/rules', methods=['GET', 'POST', 'DELETE'])
 @authenticated_resource
 def rules():
+    # Add new rules
     if request.method == 'POST':
         try:
             new = {k: v if schemas['rules']['properties'][k]['type'] == 'string'
@@ -61,12 +62,14 @@ def rules():
         except Exception as e:
             print(e)
 
+    # Delete rule
     if request.method == 'DELETE':
         try:
             mongo.db[mongo.collections['rules']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
+    # Retrieve rules
     rules_list = list(mongo.db[mongo.collections['rules']].find())
     keys = list(schemas['rules']['properties'].keys())
 
@@ -76,6 +79,7 @@ def rules():
 @app.route('/blacklist', methods=['GET', 'POST', 'DELETE'])
 @authenticated_resource
 def blacklist():
+    # Blacklist new IP
     if request.method == 'POST':
         try:
             new = {k: v if schemas['blacklist']['properties'][k]['type'] == 'string'
@@ -87,12 +91,14 @@ def blacklist():
         except Exception as e:
             print(e)
 
+    # Remove IP from blacklist
     if request.method == 'DELETE':
         try:
             mongo.db[mongo.collections['blacklist']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
+    # Retrieve blacklisted IPs
     ban_list = list(mongo.db[mongo.collections['blacklist']].find())
     keys = list(schemas['blacklist']['properties'].keys())
 
@@ -102,16 +108,16 @@ def blacklist():
 @app.route('/alerts', methods=['GET', 'DELETE'])
 @authenticated_resource
 def alerts():
+    # Delete alerts
     if request.method == 'DELETE':
         try:
             mongo.db[mongo.collections['alerts']].delete_one({'_id': ObjectId(request.json['_id'])})
         except Exception as e:
             print(e)
 
+    # Retrieve alerts
     alerts_list = list(mongo.db[mongo.collections['alerts']].aggregate([
         {
-            '$match': {}
-        }, {
             '$addFields': {
                 'timestamp': {
                     '$toDate': '$timestamp'

@@ -15,8 +15,8 @@ interface = config['NETWORK_INTERFACE']
 
 
 def process_packet(packet):
-    print(packet.show())
 
+    # We only want IP packets
     if IP not in packet:
         return
 
@@ -26,6 +26,7 @@ def process_packet(packet):
         "timestamp": int(datetime.now().timestamp() * 1000),
     }
 
+    # Unpack
     packet = packet.payload
 
     # IPv4/IPv6
@@ -39,19 +40,23 @@ def process_packet(packet):
     if packet.version == 6:
         packet_info["protocol"] = packet.nh
 
+    # Unpack
     packet = packet.payload
 
     # UDP/TCP/ICMP
     if "protocol" not in packet_info:
         packet_info["protocol"] = packet.name
 
+    # Extract ports if there is
     if hasattr(packet, "sport") and hasattr(packet, "dport"):
         packet_info["source_port"] = packet.sport
         packet_info["destination_port"] = packet.dport
 
+    # Extract flags from TCP
     if TCP in packet:
         packet_info["flags"] = [flag for flag in packet.flags]
 
+    # Enqueue and save queue
     queue.append(packet_info)
     save_packet(queue)
 
