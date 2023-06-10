@@ -58,7 +58,8 @@ class Schema:
                         'type': 'number'
                     },
                     'protocol': {
-                        'type': 'string'
+                        'type': 'string',
+                        'enum': ['TCP', 'UDP', 'ICMP']
                     },
                     'source_port': {
                         'type': 'number'
@@ -122,6 +123,7 @@ class Schema:
                     },
                     'protocol': {
                         'type': 'string',
+                        'enum': ['TCP', 'UDP', 'ICMP']
                     },
                     'source_port': {
                         'type': 'number',
@@ -177,7 +179,8 @@ class Schema:
                         'minimum': 0
                     },
                     'protocol': {
-                        'type': 'string'
+                        'type': 'string',
+                        'enum': ['TCP', 'UDP', 'ICMP']
                     },
                     'source_ip': {
                         'type': 'string'
@@ -220,7 +223,8 @@ class Schema:
                         'minimum': 0
                     },
                     'protocol': {
-                        'type': 'string'
+                        'type': 'string',
+                        'enum': ['TCP', 'UDP', 'ICMP']
                     },
                     'source_ip': {
                         'type': 'string'
