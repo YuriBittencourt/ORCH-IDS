@@ -57,9 +57,9 @@
                     <label for="protocol" class="form-label">Protocol:</label>
                     <select name="protocol" class="form-control" id="protocol" form="newRule" onchange="disableFlags(this)">
                         <option selected value="">ANY</option>
-                        <option value="tcp">TCP</option>
-                        <option value="udp">UDP</option>
-                        <option value="icmp">ICMP</option>
+                        <option value="TCP">TCP</option>
+                        <option value="UDP">UDP</option>
+                        <option value="ICMP">ICMP</option>
                     </select>
 
                     <label for="flags" class="form-label">TCP Flags:</label>
@@ -114,7 +114,7 @@
 
         function disableFlags(protocol) {
             let flags = document.forms["newRule"]["flags"];
-            if(protocol.value === 'tcp'){
+            if(protocol.value === 'TCP'){
                 flags.disabled = false
                 return
             }
