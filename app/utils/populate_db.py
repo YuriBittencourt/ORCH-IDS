@@ -93,7 +93,150 @@ def populate_packets():
                 'A'
             ],
             'captured_by': 'dummy'
-        }
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761376,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ],
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761377,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761378,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761379,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761380,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761381,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761382,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761383,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761384,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761385,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761386,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124',
+            'length': 10,
+            'ip_version': 4,
+            'captured_by': 'dummy',
+            'flags': [
+                'S'
+            ]
+        },
     ]
     mongo.db[mongo.collections['packets']].insert_many(documents, ordered=False)
 
@@ -153,6 +296,7 @@ def populate_alerts():
             'source_ip': '192.168.0.125',
             'destination_ip': '192.168.0.120'
         },
+
     ]
     mongo.db[mongo.collections['alerts']].insert_many(documents, ordered=False)
 
@@ -168,77 +312,88 @@ def populate_occurrences():
             'timestamp': 1686044761376,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761377,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761378,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761379,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761380,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761381,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761382,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761383,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761384,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761385,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
         {
             'name': 'SYN flood',
             'timestamp': 1686044761386,
             'protocol': 'TCP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 10
         },
     ]
     mongo.db[mongo.collections['occurrences']].insert_many(documents, ordered=False)
