@@ -95,10 +95,22 @@ flags: string,
 captured_by': string NOT NULL
 ```
 
+Occurrences:
+```yml
+name: string NOT NULL,
+timestamp: number NOT NULL,
+protocol: string NOT NULL,
+source_ip: string NOT NULL,
+destination_ip: string NOT NULL,
+length: number NOT NULL,
+source_port: number,
+destination_port: number
+```
+
 ___
 
 ## Setting up
-For easy set up I will list everything in the needed order
+For easy set up I will list everything in the needed order and I am assuming you are familiar with docker and has it installed and configured, if not refer to its [documentation](https://docs.docker.com/get-docker/)
 
 1. ### Database (Mongo)
    You can easily create your own Mongo instance locally with docker:
