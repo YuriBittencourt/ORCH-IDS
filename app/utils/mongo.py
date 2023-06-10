@@ -11,7 +11,8 @@ class Mongo:
             'packets': config['MONGO_COLLECTION_QUEUE'],
             'rules': config['MONGO_COLLECTION_RULES'],
             'blacklist': config['MONGO_COLLECTION_BLACKLISTED'],
-            'alerts': config['MONGO_COLLECTION_ALERTS']
+            'alerts': config['MONGO_COLLECTION_ALERTS'],
+            'occurrences': config['MONGO_COLLECTION_OCCURRENCES']
         }
 
 

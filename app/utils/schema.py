@@ -199,6 +199,50 @@ class Schema:
                         'maximum': 65536
                     }
                 }
+            },
+            'occurrences': {
+                'bsonType': 'object',
+                'required':
+                    [
+                        'name',
+                        'timestamp',
+                        'protocol',
+                        'source_ip',
+                        'destination_ip',
+                        'length'
+                    ],
+                'properties': {
+                    'name': {
+                        'type': 'string'
+                    },
+                    'timestamp': {
+                        'type': 'number',
+                        'minimum': 0
+                    },
+                    'protocol': {
+                        'type': 'string'
+                    },
+                    'source_ip': {
+                        'type': 'string'
+                    },
+                    'destination_ip': {
+                        'type': 'string'
+                    },
+                    'length': {
+                        'type': 'number',
+                    },
+                    'source_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    },
+                    'destination_port': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 65536
+                    }
+                }
+
             }
         }
 
@@ -206,8 +250,8 @@ class Schema:
             'blacklist': [{'value': 'ip', 'unique': True}],
             'packets': [{'value': [('timestamp', 1)], 'unique': False}],
             'rules': [{'value': 'name', 'unique': True}, {'value': [('severity', -1)], 'unique': False}],
-            'alerts': [{'value': [('severity', -1), ('timestamp', -1)], 'unique': False}]
+            'alerts': [{'value': [('severity', -1), ('timestamp', -1)], 'unique': False}],
+            'occurrences': [{'value': [('severity', -1), ('timestamp', -1)], 'unique': False}]
         }
-
 
 schemas = Schema().schemas

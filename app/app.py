@@ -161,6 +161,12 @@ def configurations(action=None):
     elif action == 'populate_alerts':
         execute = pop.populate_alerts
 
+    elif action == 'drop_occurrences':
+        execute = pop.drop_occurrences
+
+    elif action == 'populate_occurrences':
+        execute = pop.populate_occurrences
+
     if execute:
         try:
             execute()

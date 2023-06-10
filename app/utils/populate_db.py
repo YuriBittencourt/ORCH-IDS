@@ -156,3 +156,89 @@ def populate_alerts():
     ]
     mongo.db[mongo.collections['alerts']].insert_many(documents, ordered=False)
 
+
+def drop_occurrences():
+    mongo.db[mongo.collections['occurrences']].delete_many({})
+
+
+def populate_occurrences():
+    documents = [
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761376,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761377,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761378,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761379,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761380,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761381,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761382,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761383,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761384,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761385,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+        {
+            'name': 'SYN flood',
+            'timestamp': 1686044761386,
+            'protocol': 'TCP',
+            'source_ip': '192.168.0.120',
+            'destination_ip': '192.168.0.124'
+        },
+    ]
+    mongo.db[mongo.collections['occurrences']].insert_many(documents, ordered=False)
