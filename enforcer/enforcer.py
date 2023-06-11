@@ -31,8 +31,8 @@ class Enforcer:
         config = dotenv_values()
 
         mongo_db = config['MONGO_DB']
-        client = MongoClient(host=config['MONGO_HOST'], port=int(config['MONGO_PORT']))
-        db = client[mongo_db]
+        self.client = MongoClient(host=config['MONGO_HOST'], port=int(config['MONGO_PORT']))
+        db = self.client[mongo_db]
 
         self.rules = db[config['MONGO_COLLECTION_RULES']]
         self.alerts = db[config['MONGO_COLLECTION_ALERTS']]
@@ -98,9 +98,11 @@ class Enforcer:
         }
 
     def fetch_packets(self, batch_size=10):
-        packet_list = list(self.packets.find({}, sort=[('timestamp', 1)], limit=batch_size))
-        self.packets.delete_many({"_id": {'$in': [x['_id'] for x in packet_list]}})
-        return packet_list
+        with self.client.start_session() as session:
+            with session.start_transaction():
+                packet_list = list(self.packets.find({}, sort=[('timestamp', 1)], limit=batch_size))
+                self.packets.delete_many({"_id": {'$in': [x['_id'] for x in packet_list]}})
+                return packet_list
 
     def save_alerts(self, alerts_list):
         if len(alerts_list):
@@ -146,54 +148,57 @@ class Enforcer:
         new_alerts = []
         for rule in self.complex_rule_set.values():
 
-            # Group by interval
-            group = {'timestamp': {
-                '$dateTrunc': {
-                    'date': {
-                        '$toDate': '$timestamp'
-                    },
-                    'unit': 'second',
-                    'binSize': int(rule['interval'])
-                }
-            }
-            }
+            with self.client.start_session() as session:
+                with session.start_transaction():
 
-            if 'track' in rule:
-                if rule['track'] == 'both' or rule['track'] == 'by_dst':
-                    group['destination_ip'] = '$destination_ip'
-
-                elif rule['track'] == 'both' or rule['track'] == 'by_src':
-                    group['source_ip'] = '$source_ip'
-
-            occurrences = self.occurrences.aggregate([
-                {
-                    '$match': {
-                        'name': rule['name']
-                    }
-                }, {
-                    '$group': {
-                        '_id': group,
-                        'count': {
-                            '$sum': 1
-                        },
-                        'packet': {
-                            '$last': '$$CURRENT'
+                    # Group by interval
+                    group = {'timestamp': {
+                        '$dateTrunc': {
+                            'date': {
+                                '$toDate': '$timestamp'
+                            },
+                            'unit': 'second',
+                            'binSize': int(rule['interval'])
                         }
                     }
-                }, {
-                    '$match': {
-                        'count': {
-                            '$gte': int(rule['count'])
-                        }
                     }
-                }
-            ])
 
-            for occurrence in occurrences:
-                new_alerts.append(create_incident(occurrence['packet']['name'], occurrence['packet'], rule['severity']))
+                    if 'track' in rule:
+                        if rule['track'] == 'both' or rule['track'] == 'by_dst':
+                            group['destination_ip'] = '$destination_ip'
 
-            # We can simply delete everyone that has its timestamp lesser than (now - interval)
-            self.occurrences.delete_many({'name': rule['name'], 'timestamp': {'$lte': int(datetime.now().timestamp() * 1000) - int(rule['interval']) * 1000}})
+                        elif rule['track'] == 'both' or rule['track'] == 'by_src':
+                            group['source_ip'] = '$source_ip'
+
+                    occurrences = self.occurrences.aggregate([
+                        {
+                            '$match': {
+                                'name': rule['name']
+                            }
+                        }, {
+                            '$group': {
+                                '_id': group,
+                                'count': {
+                                    '$sum': 1
+                                },
+                                'packet': {
+                                    '$last': '$$CURRENT'
+                                }
+                            }
+                        }, {
+                            '$match': {
+                                'count': {
+                                    '$gte': int(rule['count'])
+                                }
+                            }
+                        }
+                    ])
+
+                    for occurrence in occurrences:
+                        new_alerts.append(create_incident(occurrence['packet']['name'], occurrence['packet'], rule['severity']))
+
+                    # We can simply delete everyone that has its timestamp lesser than (now - interval)
+                    self.occurrences.delete_many({'name': rule['name'], 'timestamp': {'$lte': int(datetime.now().timestamp() * 1000) - int(rule['interval']) * 1000}})
         self.save_alerts(new_alerts)
 
 
