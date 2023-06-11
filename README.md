@@ -39,7 +39,7 @@ Basically we have 3 services:
   It is the rule enforcer, it will analyze every entry in the packets collection with the rules set in the rules collection and will alert for blacklisted IPs as well
 
 ### Database Schema
-There are 4 collections: `rules`, `blacklist`, `alerts`, `packets`, the schema is as follows:
+There are 4 collections: `rules`, `blacklist`, `alerts`, `packets` and `occurrences` the schema is as follows:
 
 Rules:
 ```yml
@@ -155,6 +155,8 @@ For easy set up I will list everything in the needed order and I am assuming you
     ```sh
       sudo apt install python3 python3-pip python3.8-venv libpcap-dev
     ```
+    If you are using Windows use [Npcap](https://npcap.com/) instead of pcap  
+    
    Inside the agent folder you can create a python virtual environment if you want more isolation, to create and activate:
     ```sh
       python -m venv .
