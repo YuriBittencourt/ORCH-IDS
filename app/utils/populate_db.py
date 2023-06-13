@@ -285,7 +285,8 @@ def populate_alerts():
             'timestamp': 1686044761376,
             'protocol': 'ICMP',
             'source_ip': '192.168.0.120',
-            'destination_ip': '192.168.0.124'
+            'destination_ip': '192.168.0.124',
+            'length': 50
         },
 
         {
@@ -294,7 +295,8 @@ def populate_alerts():
             'timestamp': 1686044761377,
             'protocol': 'TCP',
             'source_ip': '192.168.0.125',
-            'destination_ip': '192.168.0.120'
+            'destination_ip': '192.168.0.120',
+            'length': 120
         },
 
     ]

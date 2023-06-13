@@ -76,7 +76,7 @@ timestamp: number NOT NULL,
 protocol: string NOT NULL,
 source_ip: string NOT NULL,
 destination_ip: string NOT NULL,
-length: number,
+length: number NOT NULL,
 source_port: number,
 destination_port: number
 ```
