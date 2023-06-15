@@ -65,7 +65,8 @@ Blacklist:
 ```yml
 ip: string NOT NULL UNIQUE,
 ip_version: number NOT NULL,
-reason: string NOT NULL
+reason: string NOT NULL,
+severity: number NOT NULL
 ```
 
 Alerts:
