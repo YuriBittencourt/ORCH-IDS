@@ -13,7 +13,7 @@ queue = []
 
 interface = config['NETWORK_INTERFACE']
 
-# IANA protocol codes to names
+# IANA protocol codes to names, refer to https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml
 protocols = {
     1: 'ICMP',
     6: 'TCP',
