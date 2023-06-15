@@ -55,7 +55,7 @@ def process_packet(packet):
     # Unpack
     packet = packet.payload
 
-    # Extract ports if there is
+    # Extract ports if there are
     if hasattr(packet, "sport") and hasattr(packet, "dport"):
         packet_info["source_port"] = packet.sport
         packet_info["destination_port"] = packet.dport
