@@ -200,7 +200,7 @@ For easy set up I will list everything in the needed order and I am assuming you
     ```sh 
       cp .env.example .env
     ```
-   Now just make sure the values are correct and after that it is time to launch the app:
+   Now just make sure the values are correct and after that it is time to launch the enforcer:
     ```sh
       python3 enforcer.py 
     ```
