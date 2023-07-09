@@ -121,10 +121,11 @@ class Enforcer:
                 if 'flags' not in packet or v not in packet['flags']:
                     return False
             elif k == 'min_length':
-                if v < packet[k]:
+                if v < packet['length']:
                     return False
             elif k == 'max_length':
-                if v > packet[k]:
+
+                if v > packet['length']:
                     return False
             elif v != packet[k]:
                 return False
